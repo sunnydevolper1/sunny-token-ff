@@ -1,7 +1,713 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"><meta name="description" content="Generate Free Fire access tokens"><meta name="keywords" content="Eat Token, Free Fire, Garena"><title>EAT Token Generator | Free Fire</title><style>
-*{margin:0;padding:0;box-sizing:border-box}.dark{color-scheme:dark;background-color:#0f0f0f;color:#fff}body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:linear-gradient(135deg,#1a1a2e,#16213e);min-height:100vh;padding:20px;display:flex;align-items:center;justify-content:center}.container{width:100%;max-width:600px;background:rgba(0,0,0,.8);border:1px solid rgba(138,43,226,.3);border-radius:20px;padding:30px;box-shadow:0 8px 32px rgba(138,43,226,.2)}.title{text-align:center;font-size:2rem;font-weight:700;background:linear-gradient(45deg,#ff00ff,#00ffff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}.subtitle{text-align:center;color:#888;margin-bottom:30px;font-size:.9rem}.form-group{margin-bottom:20px}.label{display:block;margin-bottom:8px;color:#00ffff;font-weight:600;font-size:.95rem}.input-field,.textarea-field{width:100%;padding:12px 15px;background:rgba(138,43,226,.1);border:2px solid rgba(138,43,226,.3);border-radius:8px;color:#fff;font-size:1rem;transition:all .3s ease}.input-field:focus,.textarea-field:focus{outline:0;background:rgba(138,43,226,.2);border-color:#ff00ff;box-shadow:0 0 10px rgba(138,43,226,.5)}.textarea-field{resize:vertical;min-height:80px;font-family:monospace}.button{width:100%;padding:12px;background:linear-gradient(45deg,#ff00ff,#00ffff);color:#000;border:none;border-radius:8px;font-weight:700;font-size:1rem;cursor:pointer;transition:all .3s ease;margin-bottom:10px}.button:hover{transform:translateY(-2px);box-shadow:0 5px 20px rgba(138,43,226,.5)}.button:active{transform:translateY(0)}.output-section{background:rgba(138,43,226,.1);border:2px solid rgba(138,43,226,.3);border-radius:8px;padding:20px;margin-top:20px}.output-title{color:#00ffff;font-weight:600;margin-bottom:10px}.output-text{background:rgba(0,0,0,.5);padding:12px;border-radius:6px;color:#00ff00;font-family:monospace;font-size:.85rem;word-break:break-all;max-height:200px;overflow-y:auto}.hidden{display:none!important}.social-links{display:flex;justify-content:center;gap:15px;margin-top:20px;flex-wrap:wrap}.social-link{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;background:rgba(138,43,226,.2);border:2px solid rgba(138,43,226,.5);border-radius:50%;color:#00ffff;text-decoration:none;font-size:1.2rem;transition:all .3s ease}.social-link:hover{background:rgba(138,43,226,.4);border-color:#ff00ff;transform:scale(1.1)}
-</style></head><body class="dark"><div class="container"><h1 class="title">🚀 EAT Token Generator</h1><p class="subtitle">Extract EAT Tokens & Generate Access Tokens</p><div class="form-group"><label class="label">📋 Enter Callback URL:</label><textarea class="textarea-field" id="urlInput" placeholder="Paste your callback URL here..."></textarea></div><button class="button" onclick="generateToken()">✨ GENERATE ACCESS TOKEN</button><button class="button" onclick="copyResponse()">📋 COPY FULL RESPONSE</button><div id="output" class="hidden"><div class="output-section"><div class="output-title">✅ Access Token Response:</div><div class="output-text" id="outputText"></div></div></div><div class="output-section" style="margin-top:20px;background:rgba(0,255,255,.05);"><div class="output-title">👤 Created by: Killer Sharma (Aditya)</div><div style="color:#888;font-size:.9rem;">Modified by: SUNNY</div><div class="social-links" style="margin-top:15px;"><a href="https://youtube.com/@slivexlive?si=mTUOgFa20vPuwh-S" class="social-link" title="SUNNY's YouTube">🎬</a><a href="https://t.me/suprao_star" class="social-link" title="SUNNY's Telegram">💬</a><a href="https://github.com/s4nnyexv" class="social-link" title="SUNNY's GitHub">👨‍💻</a></div></div></div><script>
-function generateToken(){const e=document.getElementById("urlInput").value.trim();if(!e)return void alert("Please enter a callback URL!");try{const t=new URL(e),n={};if(t.searchParams.forEach(((e,a)=>{n[a]=e})),!n.eat)return void alert("EAT token not found in URL!");const o={access_token:n.eat,token_type:"Bearer",expires_in:3600,scope:"read write",user_id:n.account_id||"unknown",nickname:n.nickname||"Unknown",region:n.region||"unknown"};document.getElementById("outputText").textContent=JSON.stringify(o,null,2),document.getElementById("output").classList.remove("hidden")}catch(t){alert("Invalid URL format! "+t.message)}}
-function copyResponse(){const e=document.getElementById("outputText").textContent;if(e){navigator.clipboard.writeText(e).then((()=>{alert("✅ Response copied to clipboard!")})).catch((()=>{alert("❌ Failed to copy!")}))}else alert("Generate a token first!")}
-</script></body></html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="EAT Token Generator - Extract EAT Tokens and generate Garena Free Fire access tokens">
+    <meta name="keywords" content="Eat Token, Free Fire, Garena, Access Token">
+    <title>🚀 ACCESS GENERATOR - EAT Token Tool</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #8a2be2;
+            --secondary: #00ffff;
+            --accent: #ff00ff;
+            --dark: #0f0f0f;
+            --darker: #1a1a2e;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: slideDown 0.6s ease;
+        }
+
+        .logo-circle {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.6);
+            animation: pulse 2s infinite;
+        }
+
+        .main-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        /* Tutorial Buttons */
+        .tutorial-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+
+        .tutorial-btn {
+            background: rgba(138, 43, 226, 0.2);
+            border: 2px dashed rgba(138, 43, 226, 0.6);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .tutorial-btn:hover {
+            background: rgba(138, 43, 226, 0.4);
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(138, 43, 226, 0.4);
+        }
+
+        .tutorial-icon {
+            font-size: 24px;
+        }
+
+        .tutorial-text h3 {
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+            color: var(--secondary);
+        }
+
+        .tutorial-text p {
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        .arrow {
+            margin-left: auto;
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+
+        /* How to Use Section */
+        .how-to-section {
+            background: rgba(138, 43, 226, 0.1);
+            border: 2px solid rgba(138, 43, 226, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+
+        .steps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .step {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+            font-size: 1.1rem;
+        }
+
+        .step-content h4 {
+            color: var(--secondary);
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+
+        .step-content p {
+            color: #999;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .step-content .badge {
+            display: inline-block;
+            background: rgba(0, 255, 0, 0.2);
+            border: 1px solid rgba(0, 255, 0, 0.5);
+            color: #00ff00;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+
+        .example-url {
+            background: rgba(0, 0, 0, 0.5);
+            border-left: 3px solid var(--accent);
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            color: #00ff00;
+            word-break: break-all;
+            margin-top: 8px;
+            overflow-x: auto;
+        }
+
+        /* Input Section */
+        .input-section {
+            background: rgba(138, 43, 226, 0.1);
+            border: 2px solid rgba(138, 43, 226, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .provider-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .provider-btn {
+            background: rgba(138, 43, 226, 0.2);
+            border: 2px solid rgba(138, 43, 226, 0.4);
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .provider-btn:hover {
+            background: rgba(138, 43, 226, 0.4);
+            border-color: var(--accent);
+            transform: scale(1.05);
+        }
+
+        .token-input {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(138, 43, 226, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .token-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: rgba(0, 0, 0, 0.7);
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
+        }
+
+        .token-input::placeholder {
+            color: #666;
+        }
+
+        .input-hint {
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: -10px;
+            margin-bottom: 15px;
+        }
+
+        /* Generate Button */
+        .generate-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            border: none;
+            border-radius: 12px;
+            padding: 18px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #000;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 20px rgba(138, 43, 226, 0.4);
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(138, 43, 226, 0.6);
+        }
+
+        .generate-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .generate-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Output Section */
+        .output-section {
+            background: rgba(0, 255, 0, 0.05);
+            border: 2px solid rgba(0, 255, 0, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            display: none;
+            animation: slideUp 0.5s ease;
+        }
+
+        .output-section.active {
+            display: block;
+        }
+
+        .output-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #00ff00;
+        }
+
+        .output-content {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            color: #00ff00;
+            max-height: 250px;
+            overflow-y: auto;
+            word-break: break-all;
+            white-space: pre-wrap;
+        }
+
+        .copy-btn {
+            width: 100%;
+            background: rgba(0, 255, 0, 0.2);
+            border: 2px solid rgba(0, 255, 0, 0.5);
+            color: #00ff00;
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: rgba(0, 255, 0, 0.3);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+        }
+
+        /* Social Section */
+        .social-section {
+            background: rgba(138, 43, 226, 0.1);
+            border: 2px solid rgba(138, 43, 226, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .social-title {
+            color: var(--secondary);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .social-links {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .social-link {
+            background: rgba(138, 43, 226, 0.2);
+            border: 2px solid rgba(138, 43, 226, 0.4);
+            border-radius: 10px;
+            padding: 12px;
+            text-decoration: none;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .social-link:hover {
+            background: rgba(138, 43, 226, 0.4);
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .social-link-icon {
+            font-size: 1.3rem;
+        }
+
+        .credit {
+            color: #888;
+            font-size: 0.85rem;
+            margin-top: 15px;
+            line-height: 1.6;
+        }
+
+        .credit strong {
+            color: var(--secondary);
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 30px rgba(138, 43, 226, 0.6);
+            }
+            50% {
+                box-shadow: 0 0 50px rgba(138, 43, 226, 1);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            .main-title {
+                font-size: 2rem;
+            }
+
+            .provider-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+
+            .tutorial-section {
+                grid-template-columns: 1fr;
+            }
+
+            .social-links {
+                grid-template-columns: 1fr;
+            }
+
+            .logo-circle {
+                width: 100px;
+                height: 100px;
+                font-size: 50px;
+            }
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(138, 43, 226, 0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(138, 43, 226, 0.5);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(138, 43, 226, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-circle">🎮</div>
+            <h1 class="main-title">ACCESS GENERATOR</h1>
+            <p class="subtitle">by Killer Sharma (Aditya)</p>
+        </div>
+
+        <!-- Tutorial Buttons -->
+        <div class="tutorial-section">
+            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="tutorial-btn" target="_blank">
+                <div class="tutorial-icon">▶️</div>
+                <div class="tutorial-text">
+                    <h3>FULL TUTORIAL</h3>
+                    <p>click to watch how to get eat token</p>
+                </div>
+                <div class="arrow">→</div>
+            </a>
+            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="tutorial-btn" target="_blank">
+                <div class="tutorial-icon">▶️</div>
+                <div class="tutorial-text">
+                    <h3>2ND METHOD</h3>
+                    <p>click to watch how to get access token</p>
+                </div>
+                <div class="arrow">→</div>
+            </a>
+        </div>
+
+        <!-- How to Use Section -->
+        <div class="how-to-section">
+            <div class="section-title">
+                <span>📚</span>
+                <span>HOW TO USE</span>
+            </div>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Select Provider & Login below.</h4>
+                        <p>🛡️ Safe: Official Garena Server (No Scam Risk)</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>After login, copy the URL containing eat= parameter</h4>
+                        <p><strong>Example URL:</strong></p>
+                        <div class="example-url">https://discstore.recargajogo.com.br/?eat=14f060774299fb93a5...&lang=en&ion=IND&account_id=7669969208&nickname=...</div>
+                        <span class="badge">The tool will extract the eat token automatically</span>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Paste the URL or just the Eat Token below and click GENERATE</h4>
+                        <p><strong>Supports full URL or raw token</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Section -->
+        <div class="input-section">
+            <div class="section-title">
+                <span>🔐</span>
+                <span>PASTE YOUR TOKEN</span>
+            </div>
+            
+            <div class="provider-grid">
+                <div class="provider-btn" title="Google">🔵</div>
+                <div class="provider-btn" title="Facebook">📘</div>
+                <div class="provider-btn" title="Apple">🍎</div>
+                <div class="provider-btn" title="X (Twitter)">𝕏</div>
+                <div class="provider-btn" title="VK">🌐</div>
+            </div>
+
+            <input type="text" id="tokenInput" class="token-input" placeholder="Paste kiosgamer URL or Eat token here...">
+            <div class="input-hint">💡 Supports full URL or raw token</div>
+
+            <button class="generate-btn" onclick="generateAccessToken()">
+                <span>⚡</span>
+                <span>GENERATE ACCESS →</span>
+            </button>
+        </div>
+
+        <!-- Output Section -->
+        <div id="outputSection" class="output-section">
+            <div class="output-header">
+                <span>✅</span>
+                <span>ACCESS TOKEN RESPONSE</span>
+            </div>
+            <div class="output-content" id="outputContent"></div>
+            <button class="copy-btn" onclick="copyToClipboard()">📋 COPY FULL RESPONSE</button>
+        </div>
+
+        <!-- Social Section -->
+        <div class="social-section">
+            <div class="social-title">🔗 CONNECT WITH US</div>
+            <div class="social-links">
+                <a href="https://t.me/KillerSharmaBot" class="social-link" target="_blank">
+                    <span class="social-link-icon">✈️</span>
+                    <span>Telegram (Creator)</span>
+                </a>
+                <a href="https://www.youtube.com/@KillerSharmaBot" class="social-link" target="_blank">
+                    <span class="social-link-icon">📺</span>
+                    <span>YouTube (Creator)</span>
+                </a>
+                <a href="https://t.me/suprao_star" class="social-link" target="_blank">
+                    <span class="social-link-icon">✈️</span>
+                    <span>Telegram (SUNNY)</span>
+                </a>
+                <a href="https://youtube.com/@slivexlive?si=mTUOgFa20vPuwh-S" class="social-link" target="_blank">
+                    <span class="social-link-icon">📺</span>
+                    <span>YouTube (SUNNY)</span>
+                </a>
+            </div>
+            <div class="credit">
+                <strong>⭐ Created by:</strong> Killer Sharma (Aditya)<br>
+                <strong>🎨 Modified & Maintained by:</strong> SUNNY (s4nnyexv)<br>
+                <strong>📅 Version:</strong> 2.0 Premium Edition
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function generateAccessToken() {
+            const input = document.getElementById('tokenInput').value.trim();
+            
+            if (!input) {
+                alert('❌ Please enter a URL or EAT token!');
+                return;
+            }
+
+            try {
+                let eatToken = '';
+
+                // Check if input is a URL
+                if (input.startsWith('http')) {
+                    const url = new URL(input);
+                    eatToken = url.searchParams.get('eat');
+                    
+                    if (!eatToken) {
+                        alert('❌ EAT token not found in URL! Make sure the URL contains eat= parameter');
+                        return;
+                    }
+                } else {
+                    // Assume it's a raw token
+                    eatToken = input;
+                }
+
+                // Generate response
+                const response = {
+                    access_token: eatToken,
+                    token_type: "Bearer",
+                    expires_in: 3600,
+                    scope: "read write",
+                    user_id: "generated",
+                    nickname: "User",
+                    region: "global",
+                    timestamp: new Date().toISOString(),
+                    generator: "ACCESS GENERATOR v2.0"
+                };
+
+                const jsonOutput = JSON.stringify(response, null, 2);
+                
+                document.getElementById('outputContent').textContent = jsonOutput;
+                document.getElementById('outputSection').classList.add('active');
+
+                // Scroll to output
+                setTimeout(() => {
+                    document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth' });
+                }, 300);
+
+            } catch (error) {
+                alert('❌ Invalid input! ' + error.message);
+            }
+        }
+
+        function copyToClipboard() {
+            const outputText = document.getElementById('outputContent').textContent;
+            
+            if (!outputText) {
+                alert('❌ No output to copy!');
+                return;
+            }
+
+            navigator.clipboard.writeText(outputText).then(() => {
+                alert('✅ Response copied to clipboard!');
+            }).catch(() => {
+                alert('❌ Failed to copy to clipboard!');
+            });
+        }
+
+        // Allow Enter key to generate token
+        document.getElementById('tokenInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                generateAccessToken();
+            }
+        });
+
+        // Show welcome message
+        console.log('%c🚀 ACCESS GENERATOR v2.0', 'color: #ff00ff; font-size: 20px; font-weight: bold;');
+        console.log('%cCreated by: Killer Sharma (Aditya)', 'color: #00ffff; font-size: 14px;');
+        console.log('%cModified by: SUNNY', 'color: #ffff00; font-size: 14px;');
+    </script>
+</body>
+</html>
